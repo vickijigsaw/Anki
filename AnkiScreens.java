@@ -5,19 +5,25 @@ import java.io.PrintWriter;
 
 public class AnkiScreens {
     public static void main(String[] agrs) {
-        File folder = new File("/home/vicki/Pictures/Screenshots");
-        File[] listOfFiles = folder.listFiles();
+        String DIR_PATH = "/home/vicki/Personal_Projects/drivers-anki/";
 
         try {
             PrintWriter writer = new PrintWriter("AnkiFile.txt");
-
-            Arrays.sort(listOfFiles, (a, b) -> a.getName().compareTo(b.getName()));
-            for (int i = 0; i < listOfFiles.length; i++) {
-                writer.print("<img src=\"" + listOfFiles[i] + "\">");
-                if (i % 2 == 0) {
-                    writer.print(";");
-                } else {
-                    writer.print("\n");
+           
+            // Page loop
+            for (int i = 0; i < 2000; i++) {
+                // Question loop
+                for (int x = 0; x < 2; x++) {
+                    String questionName = "page_" + i + "_question_" + x + ".png";
+                    String answerName = "page_" + i + "_answer_" + x + ".png";
+                    File questionFile = new File(DIR_PATH + questionName);
+                    File answerFile = new File(DIR_PATH + answerName);
+                    // System.out.println("Question " + questionName);
+                    // System.out.println("Answer " + answerName);
+                    if (!questionFile.exists() || !answerFile.exists()) {
+                        continue;
+                    }
+                    writer.print("<img src=\"" + questionName + "\">;" + "<img src=\"" + answerName + "\">\n");
                 }
             }
             writer.close();
